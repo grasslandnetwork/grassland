@@ -1,0 +1,4 @@
+[submodule "rust-bitcoin"]
+	path = rust-bitcoin
+	url = git@github.com:grasslandnetwork/rust-bitcoin.git
+	branch = master
