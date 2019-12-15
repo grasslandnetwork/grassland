@@ -78,6 +78,10 @@ STREAM_TYPE = 'ndarray_bytes'
 
 frames_port = 4442
 
+import json
 
-detection_server = '52.117.140.173'
-port = '8888'
+with open('config.json') as json_data:
+    detection_server = json.load(json_data)['detection_server_ip']   # IP address of your detection server
+
+
+port = '8888' # Port your detection server is listening on
