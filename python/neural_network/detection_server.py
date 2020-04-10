@@ -23,13 +23,14 @@ import settings
 import helper
 from detection_inference import DetectionModel
 
-
 import sys
+
 #Here are the imports from the visualization module.
-sys.path.append("tensorflow_repos/models/research/object_detection/") 
-from utils import label_map_util
-from utils import visualization_utils as vis_util
-from utils import ops as utils_ops
+sys.path.append("tensorflow_repos/models/research/") 
+from object_detection.utils import label_map_util
+from object_detection.utils import visualization_utils as vis_util
+from object_detection.utils import ops as utils_ops
+
 
 PATH_TO_LABELS = os.path.join('tensorflow_repos/models/research/object_detection/data', 'mscoco_label_map.pbtxt')
 NUM_CLASSES = 90
@@ -160,7 +161,7 @@ def main():
                     # print("frame_np_bytes", frame_np_bytes[0:8])
 
                     if settings.frame_np_size != len(frame_np_bytes):
-                        print("Transmitted object's length is", len(frame_np_bytes), "bytes. Expected length of",settings.ord_detection_output_meta_total_size, "bytes")
+                        print("Transmitted object's length is", len(frame_np_bytes), "bytes. Expected length of",settings.frame_np_size, "bytes")
                         continue
 
                     # the_stream = io.BytesIO()
