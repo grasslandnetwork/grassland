@@ -1,0 +1,3 @@
+**/neural_network/**/*.py -linguist-detectable
+**/detection/**/*.py -linguist-detectable
+**/detection_server/**/*.py -linguist-detectable
