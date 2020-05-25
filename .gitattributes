@@ -2,3 +2,4 @@
 **/detection/**/*.py -linguist-detectable
 **/detection_server/**/*.py -linguist-detectable
 **/tensorflow_repos/** -linguist-vendored
+*.ipynb -linguist-detectable
