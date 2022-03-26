@@ -67,6 +67,12 @@ If I set the arborists_commission too high, nodes will stop being nodes and beco
 
 
 If arborists only have to do 5 frames, then below a certain number of nodes, it's much easier to be an arborist than a node, if arborists always make a certain percentage.
+
+
+SOLUTION: The arborist can get paid in transaction fees. Market forces
+will ensure that there's always an arborist and that it's always worth
+it.
+
  
 */
 // pub const arborists_commission: u32; 
