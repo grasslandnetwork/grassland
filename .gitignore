@@ -1,4 +1,5 @@
-/target
+dist/
+node_modules/
+target/
 **/*.rs.bk
 *~
-config.json
