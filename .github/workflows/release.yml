@@ -1,11 +1,11 @@
-name: 'release'
+name: 'publish'
 on:
   push:
     branches:
       - release/*
 
 jobs:
-  release-tauri:
+  publish-tauri:
     permissions:
       contents: write
     strategy:
