@@ -2,10 +2,10 @@ name: 'publish'
 on:
   push:
     branches:
-      - release
+      - release/*
 
 jobs:
-  release-tauri:
+  publish-tauri:
     permissions:
       contents: write
     strategy:
