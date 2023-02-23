@@ -5,7 +5,7 @@ on:
       - release/*
 
 jobs:
-  publish-tauri:
+  publish-tauri: # Creates the GitHub release. Builds and uploads the app bundles to the newly created release. Creates a release tag and title using the version specified in tauri.config.json
     permissions:
       contents: write
     strategy:
