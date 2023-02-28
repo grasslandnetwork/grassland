@@ -2,13 +2,12 @@
   "build": {
     "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm start",
-    "devPath": "http://localhost:8080",
-    "distDir": "../dist",
-    "withGlobalTauri": true
+    "devPath": "http://localhost:3000",
+    "distDir": "../build"
   },
   "package": {
     "productName": "grassland",
-    "version": "0.4.1"
+    "version": "0.4.2-alpha"
   },
   "tauri": {
     "allowlist": {

@@ -1,12 +1,12 @@
 [package]
-name = "app"
-version = "0.1.0"
-description = "A Tauri App"
+name = "grassland"
+version = "0.4.2-alpha"
+description = ""
 authors = ["you"]
 license = ""
 repository = ""
 default-run = "app"
-edition = "2021"
+edition = "2022"
 rust-version = "1.59"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
