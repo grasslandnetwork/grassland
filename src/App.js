@@ -1,14 +1,12 @@
-/* global window */
 import React, {useState, useEffect} from 'react';
-import {render} from 'react-dom';
-import {StaticMap} from 'react-map-gl';
+import {Map} from 'react-map-gl';
+import maplibregl from 'maplibre-gl';
 import {AmbientLight, PointLight, LightingEffect} from '@deck.gl/core';
 import DeckGL from '@deck.gl/react';
 import {PolygonLayer} from '@deck.gl/layers';
 import {TripsLayer} from '@deck.gl/geo-layers';
 
-const { invoke } = window.__TAURI__.tauri;
-
+import { invoke } from '@tauri-apps/api';
 
 // Source data CSV
 const DATA_URL = {
@@ -75,12 +73,13 @@ export default function App({
   animationSpeed = 1
 }) {
 
-// now we can call our Command!
+        
+  // now we can call our Command!
   // Right-click the application background and open the developer tools.
   // You will see "Hello, World!" printed in the console!
   invoke('greet', { name: 'World' })
   // `invoke` returns a Promise
-        .then((response) => console.log(response))
+  .then((response) => console.log(response))
 
     
   const [time, setTime] = useState(0);
@@ -139,11 +138,7 @@ export default function App({
       initialViewState={initialViewState}
       controller={true}
     >
-      <StaticMap reuseMaps mapStyle={mapStyle} preventStyleDiffing={true} />
+      <Map reuseMaps mapLib={maplibregl} mapStyle={mapStyle} preventStyleDiffing={true} />
     </DeckGL>
   );
-}
-
-export function renderToDOM(container) {
-  render(<App />, container);
 }
