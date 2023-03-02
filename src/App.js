@@ -85,12 +85,14 @@ export default function App({
   const [time, setTime] = useState(0);
   const [animation] = useState({});
 
-  const animate = () => {
-    setTime(t => (t + animationSpeed) % loopLength);
-    animation.id = window.requestAnimationFrame(animate);
-  };
 
   useEffect(() => {
+
+    const animate = () => {
+      setTime(t => (t + animationSpeed) % loopLength);
+      animation.id = window.requestAnimationFrame(animate);
+    };
+
     animation.id = window.requestAnimationFrame(animate);
     return () => window.cancelAnimationFrame(animation.id);
   }, [animation]);
