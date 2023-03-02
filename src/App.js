@@ -95,7 +95,7 @@ export default function App({
 
     animation.id = window.requestAnimationFrame(animate);
     return () => window.cancelAnimationFrame(animation.id);
-  }, [animation]);
+  }, [animation, animationSpeed, loopLength]);
 
   const layers = [
     // This is only needed when using shadow effects
