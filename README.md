@@ -1,4 +1,4 @@
-# grassland
+# Grassland
 Grassland full node implementation
 
 ## Compile From Source Instructions

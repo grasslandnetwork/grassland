@@ -6,7 +6,7 @@
     "distDir": "../build"
   },
   "package": {
-    "productName": "grassland",
+    "productName": "Grassland",
     "version": "0.4.2-alpha"
   },
   "tauri": {
@@ -28,7 +28,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "grassland",
+      "identifier": "Grassland",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -57,7 +57,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "grassland",
+        "title": "Grassland",
         "width": 800
       }
     ]
