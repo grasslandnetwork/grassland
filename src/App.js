@@ -11,8 +11,8 @@ import { invoke } from '@tauri-apps/api';
 // Source data CSV
 const DATA_URL = {
   BUILDINGS:
-    'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/trips/buildings.json', // eslint-disable-line
-  TRIPS: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/trips/trips-v7.json' // eslint-disable-line
+    '/buildings.json', // eslint-disable-line
+  TRIPS: '/trips-v7-timestamps.json' // eslint-disable-line
 };
 
 const ambientLight = new AmbientLight({
@@ -97,6 +97,8 @@ export default function App({
     return () => window.cancelAnimationFrame(animation.id);
   }, [animation, animationSpeed, loopLength]);
 
+  const world_time_starting_point = 1678217326000;
+
   const layers = [
     // This is only needed when using shadow effects
     new PolygonLayer({
@@ -110,7 +112,7 @@ export default function App({
       id: 'trips',
       data: trips,
       getPath: d => d.path,
-      getTimestamps: d => d.timestamps,
+      getTimestamps: d => d.timestamps.map(p => p - world_time_starting_point),
       getColor: d => (d.vendor === 0 ? theme.trailColor0 : theme.trailColor1),
       opacity: 0.3,
       widthMinPixels: 2,
