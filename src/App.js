@@ -17,7 +17,7 @@ let intervalId;
 const DATA_URL = {
   BUILDINGS:
     '/buildings.json', // eslint-disable-line
-  TRIPS: '/trips-v7-timestamps.json' // eslint-disable-line
+  TRIPS: '/trips-real-timestamps.json' // eslint-disable-line
 };
 
 const ambientLight = new AmbientLight({
@@ -49,9 +49,10 @@ const DEFAULT_THEME = {
 };
 
 const INITIAL_VIEW_STATE = {
-  longitude: -74,
-  latitude: 40.72,
-  zoom: 13,
+  longitude: -73.97465012857278,
+  latitude: 40.69877933033733,
+    zoom: 19,
+    maxZoom: 22,
   pitch: 45,
   bearing: 0
 };
@@ -74,7 +75,7 @@ export default function App({
   initialViewState = INITIAL_VIEW_STATE,
   mapStyle = MAP_STYLE,
   theme = DEFAULT_THEME,
-  loopLength = 1800, // unit corresponds to the timestamp in source data
+  loopLength = 251510, // unit corresponds to the timestamp in source data
   animationSpeed = 1
 }) {
 
@@ -91,6 +92,8 @@ export default function App({
   const [animation] = useState({});
   const lastRAFTimestamp = useRef(0);
 
+  console.log("time", time);
+    
   useEffect(() => {
 
     if (domElementRef.current) {
@@ -120,8 +123,8 @@ export default function App({
     };
   }, [animation, animationSpeed, loopLength, domElementRef.current]);
 
-  const world_time_starting_point = 1678217326000;
-
+  const world_time_starting_point = 1668521196000;
+     
   const layers = [
     // This is only needed when using shadow effects
     new PolygonLayer({
@@ -135,7 +138,9 @@ export default function App({
       id: 'trips',
       data: trips,
       getPath: d => d.path,
-      getTimestamps: d => d.timestamps.map(p => p - world_time_starting_point),
+        getTimestamps: d => d.timestamps.map(p => {
+            console.log("p", p);
+            return p - world_time_starting_point;}),
       getColor: d => (d.vendor === 0 ? theme.trailColor0 : theme.trailColor1),
       opacity: 0.3,
       widthMinPixels: 2,
@@ -144,17 +149,6 @@ export default function App({
       currentTime: time,
 
       shadowEnabled: false
-    }),
-    new PolygonLayer({
-      id: 'buildings',
-      data: buildings,
-      extruded: true,
-      wireframe: false,
-      opacity: 0.5,
-      getPolygon: f => f.polygon,
-      getElevation: f => f.height,
-      getFillColor: theme.buildingColor,
-      material: theme.material
     })
   ];
 
