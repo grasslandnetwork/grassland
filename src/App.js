@@ -5,6 +5,7 @@ import {AmbientLight, PointLight, LightingEffect} from '@deck.gl/core';
 import DeckGL from '@deck.gl/react';
 import {PolygonLayer} from '@deck.gl/layers';
 import {TripsLayer} from '@deck.gl/geo-layers';
+import {Timepicker} from './timepicker.js';
 
 import { invoke } from '@tauri-apps/api';
 
@@ -62,6 +63,10 @@ const landCover = [
   ]
 ];
 
+const inlineClockStyle = {
+	'paddingRight': '56px'
+};
+
 export default function App({
   buildings = DATA_URL.BUILDINGS,
   trips = DATA_URL.TRIPS,
@@ -84,6 +89,11 @@ export default function App({
     
   const [time, setTime] = useState(0);
   const [animation] = useState({});
+
+  this.timepicker = Timepicker();
+
+  document.getElementById('timepicker').appendChild(this.timepicker.getElement());
+	this.timepicker.show();
 
 
   useEffect(() => {
@@ -143,6 +153,8 @@ export default function App({
       controller={true}
     >
       <Map reuseMaps mapLib={maplibregl} mapStyle={mapStyle} preventStyleDiffing={true} />
+      <div id="timepicker" style={inlineClockStyle}></div>
     </DeckGL>
+   
   );
 }
