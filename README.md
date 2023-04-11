@@ -25,26 +25,23 @@ Installers are available for Windows, macOS and Linux on the [Latest Releases pa
 
 Grassland Full Node is wriiten in the Rust and JavaScript languages using the Tauri application framework.
 
+## 1. Install Prerequisites 
 
-## Installation
-
-### Installing Prerequisites 
-
-#### Install Rust and System Dependencies
+### 1.1 Rust and System Dependencies
 Follow [these instructions](https://tauri.app/v1/guides/getting-started/prerequisites) to install Rust and system dependencies
 
 
-### Install Tauri's Rust CLI 
+### 1.2 Tauri's Rust CLI 
 
     cargo install tauri-cli
 
 
-#### Install Node.js
+### 1.3 Node.js
 
 Instructions for installing Node.js can be found [here](https://nodejs.org/en/download/).
 
 
-### Clone the repository
+## 2. Clone the repository
 
 Assuming [Git](https://git-scm.com/) is installed, clone the repository:
 
@@ -52,24 +49,14 @@ Assuming [Git](https://git-scm.com/) is installed, clone the repository:
     cd grassland
 
 
-### Install `npm` packages
+## 3. Install `npm` packages
 
 Install the npm dependencies, this should be repeated each time any of the `package.json` files are updated.
 
     npm install
 
 
-## Development
-
-### Run the application with reload
-
-To run the application in development mode, run:
-
-    cargo tauri dev
-
-This will start the application in development mode, with reloading enabled, so any changes to the source code will be automatically reloaded.
-
-### Build the application
+### 4. Build the application
 
 To build the application, run:
 
