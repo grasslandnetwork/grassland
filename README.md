@@ -4,6 +4,8 @@ Grassland Full Node Implementation
 
 ## Installation 
 
+Installers are available on the [Latest Releases page](https://github.com/grasslandnetwork/grassland/releases/latest)
+
 Grassland Full Node supports the following platforms:
 
 | Platform                 | Versions        |
@@ -13,10 +15,6 @@ Grassland Full Node supports the following platforms:
 | Linux                    | See below       |
 | iOS/iPadOS (coming soon) |                 |
 | Android (coming soon)    |                 |
-
-
-Installers are available for Windows, macOS and Linux on the [Latest Releases page](https://github.com/grasslandnetwork/grassland/releases/latest)
-
 
 
 ## Compiling From Source 
