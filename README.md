@@ -4,9 +4,7 @@ Grassland Full Node Implementation
 
 ## Installation 
 
-Installers are available on the [Latest Releases page](https://github.com/grasslandnetwork/grassland/releases/latest)
-
-Grassland Full Node supports the following platforms:
+Installers are available on the [Latest Releases page](https://github.com/grasslandnetwork/grassland/releases/latest). The following platforms are supported:
 
 | Platform                 | Versions        |
 | :----------------------- | :-------------- |
