@@ -16,7 +16,7 @@ Once you've made your changes to the source code, build the application so you c
 ## Make a fork of this repo and send us a pull request 
 
 ## Workflow
-Grassland development follows the [git flow](https://datasift.github.io/gitflow/IntroducingGitFlow.html) methodology.
+Grassland development follows the [git flow](https://www.git-tower.com/learn/git/ebook/en/command-line/advanced-topics/git-flow/) methodology.
 
 There are a number of scripts that make this easier by bunding git commands into this workflow. We recommend [gitflow-avh](https://github.com/petervanderdoes/gitflow-avh/wiki) with the following settings.
 
@@ -28,5 +28,5 @@ Bugfix branch prefix: bugfix/
 Release branch prefix: release/ 
 Hotfix branch prefix: hotfix/ 
 Support branch prefix: support/ 
-Version tag prefix:
+Version tag prefix: v
 ```
