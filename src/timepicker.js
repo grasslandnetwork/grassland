@@ -44,7 +44,9 @@ export function Timepicker(isClockMode, is24HoursSystem, selectedHours, selected
 		centerX,
 		centerY,
 		cssTransform = Timepicker.getSupportedTransformProp(),
-		secondTimer,
+		secondTimer;
+
+		this.timepickerElement = timepicker;
 
 
 	handleMouseDown = function(e) {
