@@ -4,4 +4,5 @@ export default {
     '^.+\\.js$': 'babel-jest',
   },
   setupFiles: ['jest-canvas-mock'],
+  setupFilesAfterEnv: ['./jest.setup.js'],
 };
