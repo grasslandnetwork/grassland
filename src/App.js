@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {Map} from 'react-map-gl';
 import maplibregl from 'maplibre-gl';
 import {AmbientLight, PointLight, LightingEffect} from '@deck.gl/core';
@@ -8,7 +8,7 @@ import {PolygonLayer} from '@deck.gl/layers';
 import {TripsLayer} from '@deck.gl/geo-layers';
 
 import { invoke } from '@tauri-apps/api';
-const Timer = require('./timepicker.js');
+const timer = require('./timepicker.js');
 
 // Source data CSV
 const DATA_URL = {
@@ -75,7 +75,7 @@ export default function App({
   animationSpeed = 1
 }) {
 
-        
+  const domElementRef = useRef(null);
   // now we can call our Command!
   // Right-click the application background and open the developer tools.
   // You will see "Hello, World!" printed in the console!
@@ -87,12 +87,15 @@ export default function App({
   const [time, setTime] = useState(0);
   const [animation] = useState({});
 
-
-
-
   useEffect(() => {
 
-    const timer = Timer.Timepicker();
+    if (domElementRef.current) {
+      // Your code to execute when the DOM element is available
+      const timepicker = timer.Timepicker();
+      document.getElementById('timepicker').appendChild(timepicker.getElement());
+      timepicker.show()
+    }
+    
 
     const animate = () => {
       setTime(t => (t + animationSpeed) % loopLength);
@@ -101,7 +104,7 @@ export default function App({
 
     animation.id = window.requestAnimationFrame(animate);
     return () => window.cancelAnimationFrame(animation.id);
-  }, [animation, animationSpeed, loopLength]);
+  }, [animation, animationSpeed, loopLength, domElementRef.current]);
 
   const layers = [
     // This is only needed when using shadow effects
@@ -147,7 +150,7 @@ export default function App({
       controller={true}
     >
       <Map reuseMaps mapLib={maplibregl} mapStyle={mapStyle} preventStyleDiffing={true} />
-      <div id="timepicker"></div>
+      <div ref={domElementRef} id="timepicker"></div>
     </DeckGL>
     
   );

@@ -486,8 +486,6 @@ export function Timepicker(isClockMode, is24HoursSystem, selectedHours, selected
 			updateClockDate();
 			updateClockPointers();
 			updatePickedTime();
-
-			
 		}
 		else {
 			self.destroy();
@@ -626,6 +624,8 @@ export function Timepicker(isClockMode, is24HoursSystem, selectedHours, selected
 	this.callback;
 	
 	createTimepicker();
+
+	return this;
 }
 
 Timepicker.addEvent = function(elm, evt, callback) {
