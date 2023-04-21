@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, {useState, useEffect} from 'react';
 import {Map} from 'react-map-gl';
 import maplibregl from 'maplibre-gl';
@@ -7,6 +8,7 @@ import {PolygonLayer} from '@deck.gl/layers';
 import {TripsLayer} from '@deck.gl/geo-layers';
 
 import { invoke } from '@tauri-apps/api';
+const Timer = require('./timepicker.js');
 
 // Source data CSV
 const DATA_URL = {
@@ -86,7 +88,11 @@ export default function App({
   const [animation] = useState({});
 
 
+
+
   useEffect(() => {
+
+    const timer = Timer.Timepicker();
 
     const animate = () => {
       setTime(t => (t + animationSpeed) % loopLength);
@@ -141,6 +147,8 @@ export default function App({
       controller={true}
     >
       <Map reuseMaps mapLib={maplibregl} mapStyle={mapStyle} preventStyleDiffing={true} />
+      <div id="timepicker"></div>
     </DeckGL>
+    
   );
 }
