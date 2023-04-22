@@ -11,6 +11,7 @@ import { invoke } from '@tauri-apps/api';
 const timer = require('./timepicker.js');
 let timepicker;
 let startTime = Date.now();
+let lastRAFTimestamp = 0;
 let intervalId;
 // Source data CSV
 const DATA_URL = {
@@ -97,11 +98,6 @@ export default function App({
         timepicker = timer.Timepicker();
         document.getElementById('timepicker').appendChild(timepicker.getElement());
         timepicker.show();
-
-        // Set up an interval to update the elapsed time every 100 milliseconds
-        intervalId = setInterval(() => {
-          timepicker.moveClockDateForward(Date.now() - startTime);
-        }, 100);
       }
 
     }
@@ -109,6 +105,9 @@ export default function App({
 
     const animate = () => {
       setTime(t => (t + animationSpeed) % loopLength);
+      if (timepicker) {
+        timepicker.moveClockDateForward(Date.now() - startTime);
+      }
       animation.id = window.requestAnimationFrame(animate);
     };
 
