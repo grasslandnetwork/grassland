@@ -9,7 +9,9 @@ import {TripsLayer} from '@deck.gl/geo-layers';
 
 import { invoke } from '@tauri-apps/api';
 const timer = require('./timepicker.js');
-
+let timepicker;
+let startTime = Date.now();
+let intervalId;
 // Source data CSV
 const DATA_URL = {
   BUILDINGS:
@@ -91,9 +93,17 @@ export default function App({
 
     if (domElementRef.current) {
       // Your code to execute when the DOM element is available
-      const timepicker = timer.Timepicker();
-      document.getElementById('timepicker').appendChild(timepicker.getElement());
-      timepicker.show()
+      if(!timepicker) {
+        timepicker = timer.Timepicker();
+        document.getElementById('timepicker').appendChild(timepicker.getElement());
+        timepicker.show();
+
+        // Set up an interval to update the elapsed time every 100 milliseconds
+        intervalId = setInterval(() => {
+          timepicker.moveClockDateForward(Date.now() - startTime);
+        }, 100);
+      }
+
     }
     
 
@@ -103,7 +113,10 @@ export default function App({
     };
 
     animation.id = window.requestAnimationFrame(animate);
-    return () => window.cancelAnimationFrame(animation.id);
+    return () => {
+      window.cancelAnimationFrame(animation.id);
+      clearInterval(intervalId);
+    };
   }, [animation, animationSpeed, loopLength, domElementRef.current]);
 
   const layers = [
