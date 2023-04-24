@@ -106,7 +106,7 @@ export default function App({
     const animate = () => {
       setTime(t => (t + animationSpeed) % loopLength);
       if (timepicker) {
-        timepicker.moveClockDateForward(Date.now() - startTime);
+        timepicker.moveClockDateForward((Date.now() - startTime) / 1000);
       }
       animation.id = window.requestAnimationFrame(animate);
     };
