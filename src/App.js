@@ -86,9 +86,10 @@ export default function App({
   // `invoke` returns a Promise
   .then((response) => console.log(response))
 
-    
+
   const [time, setTime] = useState(0);
   const [animation] = useState({});
+  const lastRAFTimestamp = useRef(0);
 
   useEffect(() => {
 
@@ -101,14 +102,15 @@ export default function App({
       }
 
     }
-    
 
-    const animate = () => {
+    const animate = (rAFTimestamp=0) => {
       setTime(t => (t + animationSpeed) % loopLength);
-      if (timepicker) {
-        timepicker.moveClockDateForward((Date.now() - startTime) / 1000);
-      }
-      animation.id = window.requestAnimationFrame(animate);
+        if (timepicker) {
+            var elapsedMilliseconds = rAFTimestamp - lastRAFTimestamp.current;
+            timepicker.moveClockDateForward(elapsedMilliseconds);
+        }
+        lastRAFTimestamp.current = rAFTimestamp;
+        animation.id = window.requestAnimationFrame(animate);
     };
 
     animation.id = window.requestAnimationFrame(animate);
