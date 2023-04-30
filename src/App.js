@@ -58,7 +58,8 @@ const INITIAL_VIEW_STATE = {
   latitude: 40.69877933033733,
     zoom: 19,
     maxZoom: 25,
-  pitch: 45,
+    pitch: 45,
+    maxPitch: 85,
   bearing: 0
 };
 
@@ -222,7 +223,7 @@ export default function App({
       initialViewState={initialViewState}
       controller={true}
     >
-      <Map reuseMaps mapLib={maplibregl} mapStyle={mapStyle} preventStyleDiffing={true} />
+      <Map reuseMaps mapLib={maplibregl} mapStyle={mapStyle} preventStyleDiffing={true} maxPitch={85} />
       <div ref={domElementRef} id="timepicker"></div>
     </DeckGL>
     
