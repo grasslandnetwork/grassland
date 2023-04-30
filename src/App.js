@@ -82,10 +82,15 @@ const connections = [
 ];
 
 
-// Create a transformation matrix that rotates the poses 90 degrees around the X-axis and 180 degrees around the Z-axis
-// By applying this transformation, the poses' X, Y, and Z coordinates will be correctly oriented according to Deck.gl's coordinate system
-const transformationMatrix = new Matrix4().rotateX(Math.PI / 2).rotateZ(Math.PI);
 
+// Create a transformation matrix that rotates 90 degrees around the X-axis and 135 degrees around the Z-axis
+// By applying this transformation, the poses' X, Y, and Z coordinates will be correctly oriented according to Deck.gl's coordinate system
+const oldtransformationMatrix = new Matrix4().rotateX(Math.PI / 2).rotateZ((3 * Math.PI) / 4); // for raspberrypi3b
+
+
+
+// Create a transformation matrix that rotates 135 degrees around the Z-axis and 90 degrees around the X-axis
+// const oldtransformationMatrix = new Matrix4().rotateZ((3 * Math.PI) / 4).rotateX(Math.PI / 2); // for raspberrypi4b
 
 // this assume that poses.json is in the following format. With 'start' and 'end' representing two connected keypoints
 // [
@@ -111,6 +116,30 @@ export default function App({
   animationSpeed = 1
 }) {
 
+
+  const [transformationMatrix, setTransformationMatrix] = useState(new Matrix4());
+  const [isViewStateChangeEnabled, setIsViewStateChangeEnabled] = useState(false);
+
+  const handleViewStateChange = ({ viewState }) => {
+    if (!isViewStateChangeEnabled) return;
+
+    const { pitch, bearing } = viewState;
+
+    // Create the transformation matrix using pitch and bearing
+    const newTransformationMatrix = new Matrix4()
+      .rotateZ((-bearing * Math.PI) / 180)
+      .rotateX((pitch * Math.PI) / 180);
+
+    setTransformationMatrix(newTransformationMatrix);
+  };
+
+    const toggleViewStateChange = () => {
+        console.log("viewstatechange changed");
+    setIsViewStateChangeEnabled(!isViewStateChangeEnabled);
+  };
+
+
+    
   const domElementRef = useRef(null);
   // now we can call our Command!
   // Right-click the application background and open the developer tools.
@@ -216,16 +245,23 @@ export default function App({
 
   ];
 
-  return (
-    <DeckGL
-      layers={layers}
-      effects={theme.effects}
-      initialViewState={initialViewState}
-      controller={true}
-    >
-      <Map reuseMaps mapLib={maplibregl} mapStyle={mapStyle} preventStyleDiffing={true} maxPitch={85} />
-      <div ref={domElementRef} id="timepicker"></div>
-    </DeckGL>
+    return (
+        <div>
+            <DeckGL
+                layers={layers}
+                effects={theme.effects}
+                initialViewState={initialViewState}
+                controller={true}
+                onViewStateChange={handleViewStateChange}
+            >
+                <Map reuseMaps mapLib={maplibregl} mapStyle={mapStyle} preventStyleDiffing={true} maxPitch={85} />
+                <div ref={domElementRef} id="timepicker"></div>
+            </DeckGL>
+
+            <button onClick={toggleViewStateChange} style={{ position: 'absolute', top: 0, left: 0 }}>
+                {isViewStateChangeEnabled ? 'Disable' : 'Enable'} Calibration
+            </button>
+        </div>
     
   );
 }
