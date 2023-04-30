@@ -11,6 +11,9 @@ import {LineLayer} from '@deck.gl/layers';
 import {Matrix4} from 'math.gl';
 import { invoke } from '@tauri-apps/api';
 const timer = require('./timepicker.js');
+import { DataFilterExtension } from '@deck.gl/extensions';
+
+
 let timepicker;
 let startTime = Date.now();
 let lastRAFTimestamp = 0;
@@ -82,19 +85,6 @@ const connections = [
 // By applying this transformation, the poses' X, Y, and Z coordinates will be correctly oriented according to Deck.gl's coordinate system
 const transformationMatrix = new Matrix4().rotateX(Math.PI / 2).rotateZ(Math.PI);
 
-const thisLineLayer = new LineLayer({
-    id: 'pose-connections',
-    coordinateSystem: COORDINATE_SYSTEM.METER_OFFSETS,
-    coordinateOrigin: [-73.97466922549505, 40.698810743664666, 2],
-    modelMatrix: transformationMatrix,
-    data: "poses.json",    
-    getSourcePosition: d => [d.start.x, d.start.y, d.start.z],
-    getTargetPosition: (d, info) => {
-        return [d.end.x, d.end.y, d.end.z];
-    },
-    getColor: [0, 255, 0, 255],
-    getWidth: 0.4
-});
 
 // this assume that poses.json is in the following format. With 'start' and 'end' representing two connected keypoints
 // [
@@ -129,11 +119,11 @@ export default function App({
   // .then((response) => console.log(response))
 
 
-  const [time, setTime] = useState(0);
+  const [clockValue, setClockValue] = useState(0);
   const [animation] = useState({});
   const lastRAFTimestamp = useRef(0);
 
-  // console.log("time", time);
+  // console.log("clockValue", clockValue);
     
   useEffect(() => {
 
@@ -148,10 +138,12 @@ export default function App({
     }
 
     const animate = (rAFTimestamp=0) => {
-      setTime(t => (t + animationSpeed) % loopLength);
+      setClockValue(t => (t + animationSpeed) % loopLength);
         if (timepicker) {
             var elapsedMilliseconds = rAFTimestamp - lastRAFTimestamp.current;
-            timepicker.moveClockDateForward(elapsedMilliseconds);
+
+            let thistime = timepicker.moveClockDateForward(elapsedMilliseconds);
+            setClockValue(thistime);
         }
         lastRAFTimestamp.current = rAFTimestamp;
         animation.id = window.requestAnimationFrame(animate);
@@ -164,11 +156,10 @@ export default function App({
     };
   }, [animation, animationSpeed, loopLength, domElementRef.current]);
 
-    const world_time_starting_point = 1668521196000;
+    const world_time_starting_point = 1682802285695;
 
-   
-
-     
+    const range = 20;
+    
   const layers = [
     // This is only needed when using shadow effects
     new PolygonLayer({
@@ -178,7 +169,31 @@ export default function App({
       stroked: false,
       getFillColor: [0, 0, 0, 0]
     }),
-    thisLineLayer
+    new LineLayer({
+        id: 'pose-connections',
+        coordinateSystem: COORDINATE_SYSTEM.METER_OFFSETS,
+        coordinateOrigin: [-73.97466922549505, 40.698810743664666, 2],
+        modelMatrix: transformationMatrix,
+        data: "poses.json",    
+        getSourcePosition: d => {
+            return [d.start.x, d.start.y, d.start.z];
+        },
+        getTargetPosition: (d, info) => [d.end.x, d.end.y, d.end.z],
+        getColor: [0, 255, 0, 255],
+        getWidth: 0.4,
+        getFilterValue: (d) => {
+            return d.start.timestamp - world_time_starting_point
+        },
+        filterRange: clockValue ? [(clockValue-world_time_starting_point)-range, (clockValue-world_time_starting_point)+range] : [0, 0], // Update this based on the clockValue,
+        extensions: [new DataFilterExtension({ filterSize: 1 })],
+        updateTriggers: {
+            getSourcePosition: clockValue,
+            getTargetPosition: clockValue,
+            filterRange: clockValue, // Add this to re-evaluate the filterRange when clockValue changes
+            getFilterValue: clockValue,
+        },
+
+    })
       
     // new TripsLayer({
     //   id: 'trips',
@@ -191,7 +206,7 @@ export default function App({
     //   widthMinPixels: 2,
     //   rounded: true,
     //   trailLength,
-    //   currentTime: time,
+    //   currentTime: clockValue,
 
     //   shadowEnabled: false
     // }),
