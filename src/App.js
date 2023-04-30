@@ -158,7 +158,7 @@ export default function App({
 
     const world_time_starting_point = 1682802285695;
 
-    const range = 20;
+    const range = 75;
     
   const layers = [
     // This is only needed when using shadow effects
