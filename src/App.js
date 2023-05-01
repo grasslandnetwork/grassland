@@ -118,10 +118,10 @@ export default function App({
 
 
   const [transformationMatrix, setTransformationMatrix] = useState(new Matrix4());
-  const [isViewStateChangeEnabled, setIsViewStateChangeEnabled] = useState(false);
+  const [isCalibrationEnabled, setIsCalibrationEnabled] = useState(false);
 
   const handleViewStateChange = ({ viewState }) => {
-    if (!isViewStateChangeEnabled) return;
+    if (!isCalibrationEnabled) return;
 
     const { pitch, bearing } = viewState;
 
@@ -135,7 +135,7 @@ export default function App({
 
     const toggleViewStateChange = () => {
         console.log("viewstatechange changed");
-    setIsViewStateChangeEnabled(!isViewStateChangeEnabled);
+    setIsCalibrationEnabled(!isCalibrationEnabled);
   };
 
 
@@ -265,7 +265,7 @@ export default function App({
             </DeckGL>
 
             <button onClick={toggleViewStateChange} style={{ position: 'absolute', top: 0, left: 0 }}>
-                {isViewStateChangeEnabled ? 'Disable' : 'Enable'} Calibration
+                {isCalibrationEnabled ? 'Disable' : 'Enable'} Calibration
             </button>
         </div>
     
