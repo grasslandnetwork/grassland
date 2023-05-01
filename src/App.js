@@ -180,7 +180,13 @@ export default function App({
     };
 
     animation.id = window.requestAnimationFrame(animate);
-    return () => {
+      return () => {
+
+          // Cleanup function to remove the timepicker element
+          if (timepicker) {
+              timepicker.getElement().remove();
+          }
+          
       window.cancelAnimationFrame(animation.id);
       clearInterval(intervalId);
     };
