@@ -69,12 +69,18 @@
 .timepicker .picked-date {
 	top: 300px !important;
 	font-size: 1.35em !important;
+    display:none;
 }
 .timepicker .button.hour {
 	left: 15px;
+    display: none; /*replaced by pause button*/
 }
 .timepicker .button.ok {
 	right: 6px;
+}
+.timepicker .button.pause{
+    left: 0px;
+    width: 61px;
 }
 .timepicker .button {
 	top: 263px;

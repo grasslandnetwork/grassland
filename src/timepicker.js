@@ -25,6 +25,7 @@ export function Timepicker(isClockMode, is24HoursSystem, selectedHours, selected
 		pickedDate = document.createElement('div'),
 		hourSystemButton = document.createElement('div'),
 		okButton = document.createElement('div'),
+        pauseButton = document.createElement('div'),
 		displayStyle = 'block',
 		isHidden = true,
 		isPM = selectedHours >= 12,
@@ -37,6 +38,7 @@ export function Timepicker(isClockMode, is24HoursSystem, selectedHours, selected
 		isReverseRotate,
 		isDragging = false,
 		isFiredByMouse = false,
+        isPaused = false,
 		touchId,
 		lastHourDeg,
 		lastMinuteDeg,
@@ -224,6 +226,11 @@ export function Timepicker(isClockMode, is24HoursSystem, selectedHours, selected
 		updateClockTime();
 		if (typeof self.callback === 'function') self.callback();
 	},
+        
+    handlePauseButton = function() {
+        isPaused = !isPaused;
+        labelPauseButton();
+    },
 	
 	updatePickedTime = function() {
 		// console.log("You picked "+getPickedTimeString());
@@ -242,10 +249,6 @@ export function Timepicker(isClockMode, is24HoursSystem, selectedHours, selected
 		clockDate.setHours(selectedHours,selectedMinutes,selectedSeconds,0);
 	},
 	
-	// startClockDateInterval = function() {
-	// 	secondTimer = window.setInterval(moveClockDateForward, clockDateIntervalSize);
-	// },
-		
 	updateClockTime = function() {
 		selectedHours = new Date().getHours();
 		selectedMinutes = new Date().getMinutes();
@@ -284,6 +287,11 @@ export function Timepicker(isClockMode, is24HoursSystem, selectedHours, selected
 	label24HoursSystem = function() {
 		hourSystemButton.innerHTML = (is24HoursSystem ? '12' : '24') + 'H';
 	},
+
+    labelPauseButton = function() {
+		pauseButton.innerHTML = (isPaused ? 'Resume' : 'Pause');
+	},
+
 	
 	rotateElement = function(elm, deg) {
 		elm.style[cssTransform] = 'rotate(' + deg + 'deg)';
@@ -371,6 +379,9 @@ export function Timepicker(isClockMode, is24HoursSystem, selectedHours, selected
 		okButton.classList.add('button');
 		okButton.classList.add('ok');
 		okButton.style.padding = '0px';
+        pauseButton.classList.add('button');
+		pauseButton.classList.add('pause');
+		pauseButton.style.padding = '0px';
 		clockFace.setAttribute('width', 240);
 		clockFace.setAttribute('height', 240);
 		hourHand.setAttribute('width', 20);
@@ -381,6 +392,7 @@ export function Timepicker(isClockMode, is24HoursSystem, selectedHours, selected
 		secondHand.setAttribute('height', 120);
 		label24HoursSystem();
 		okButton.innerHTML = 'Now';
+        labelPauseButton();
 		setTimepickerDisplay();
 		timepicker.appendChild(clockFace);
 		timepicker.appendChild(hourHand);
@@ -390,6 +402,7 @@ export function Timepicker(isClockMode, is24HoursSystem, selectedHours, selected
 		timepicker.appendChild(pickedDate);
 		timepicker.appendChild(hourSystemButton);
 		timepicker.appendChild(okButton);
+        timepicker.appendChild(pauseButton);
 		if (clockFace.getContext){
 			// Create clock surface
 			var ctx = clockFace.getContext('2d');
@@ -471,6 +484,7 @@ export function Timepicker(isClockMode, is24HoursSystem, selectedHours, selected
 			// Finalize
 			Timepicker.addEvent(hourSystemButton, 'click', handleChangeHourSystem);
 			Timepicker.addEvent(okButton, 'click', handleOkButton);
+            Timepicker.addEvent(pauseButton, 'click', handlePauseButton);
 			
 			if (isClockMode) secondTimer = window.setInterval(updateClockTime, 1000);
 			else {
@@ -529,11 +543,10 @@ export function Timepicker(isClockMode, is24HoursSystem, selectedHours, selected
 	this.isHidden = function() {
 		return isHidden;
 	};
-
 	
 	this.moveClockDateForward = function(elapsedMilliseconds) {
 
-		if (isDragging) return +clockDate; // Don't move clock hands forward if they're being dragged
+		if (isDragging || isPaused) return +clockDate; // Don't move clock hands forward if they're being dragged or if the clock is paused
 
 		var selectedMilliseconds = clockDate.getMilliseconds();
 		// add elapsedMilliseconds to clockDate
