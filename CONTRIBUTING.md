@@ -1,5 +1,22 @@
 # Contributing
 
+## Install OpenCV
+
+First you'll need to install OpenCV. Which handles the video processing.
+
+Windows (via [Chocolatey](https://chocolatey.org/)):
+
+    choco install opencv
+
+Ubuntu
+
+    sudo apt install opencv
+
+
+macOS (via [Homebrew](https://brew.sh/)):
+
+    brew install opencv
+    
 
 ## Run the application with reload
 
