@@ -29,3 +29,4 @@ elif [[ "$OS_FAMILY" == "Windows" ]]; then
 		"$ci_dir/install-windows-chocolatey.sh"
 	fi
 fi
+
