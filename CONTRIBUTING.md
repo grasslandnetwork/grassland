@@ -10,7 +10,7 @@ Windows (via [Chocolatey](https://chocolatey.org/)):
 
 Ubuntu
 
-    sudo apt install opencv
+    sudo apt install libopencv-dev
 
 
 macOS (via [Homebrew](https://brew.sh/)):
