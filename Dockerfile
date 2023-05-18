@@ -18,8 +18,7 @@ RUN \
     libgtk-3-dev \
     libayatana-appindicator3-dev \
     librsvg2-dev \
-    clang \
-    libclang-dev
+    clang
 
 
 # workaround to make clang_sys crate detect installed libclang
