@@ -41,7 +41,7 @@ jobs:
       - name: Install dependencies
         env:
           OS_FAMILY: ${{ runner.os }}
-        run: ci/install.sh
+        run: src-tauri/src/ci/install.sh
         shell: bash
 
       - name: Install Rust
@@ -50,7 +50,7 @@ jobs:
       - name: Test project
         env:
           OS_FAMILY: ${{ runner.os }}
-        run: ci/script.sh
+        run: src-tauri/src/ci/script.sh
         shell: bash
         
   bin:
@@ -82,7 +82,7 @@ jobs:
       - name: Install dependencies
         env:
           OS_FAMILY: ${{ runner.os }}
-        run: ci/install.sh
+        run: src-tauri/src/ci/install.sh
         shell: bash
 
       - name: Install Rust
@@ -91,6 +91,6 @@ jobs:
       - name: Test project
         env:
           OS_FAMILY: ${{ runner.os }}
-        run: ci/script.sh
+        run: src-tauri/src/ci/script.sh
         shell: bash
 
