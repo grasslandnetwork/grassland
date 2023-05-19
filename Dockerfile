@@ -18,7 +18,8 @@ RUN \
     libgtk-3-dev \
     libayatana-appindicator3-dev \
     librsvg2-dev \
-    clang
+    clang \
+    libclang-dev
 
 
 # workaround to make clang_sys crate detect installed libclang
@@ -57,7 +58,7 @@ RUN make -j8 && make install
 FROM opencvinstaller as apploader
 
 # Set environment variables for Rust project
-ENV OPENCV_LINK_LIBS="opencv_imgproc,opencv_face,opencv_objdetect,opencv_dnn,opencv_dnn_objdetect,opencv_core,ippiw,ittnotify,ippicv,liblibprotobuf,z" \
+ENV OPENCV_LINK_LIBS="opencv_imgproc,opencv_face,opencv_objdetect,opencv_dnn,opencv_dnn_objdetect,opencv_core,opencv_imgcodecs,ippiw,ittnotify,ippicv,liblibprotobuf,z" \
     OPENCV_LINK_PATHS="/opt/opencv/lib,/opt/opencv/lib/opencv4/3rdparty,/usr/lib/x86_64-linux-gnu" \
     OPENCV_INCLUDE_PATHS="/opt/opencv/include/opencv4"
 

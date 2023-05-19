@@ -262,7 +262,6 @@ checksum = "c688fc74432808e3eb684cae8830a86be1d66a2bd58e1f248ed0960a590baf6f"
 dependencies = [
  "glob",
  "libc",
- "libloading",
 ]
 
 [[package]]
@@ -1246,16 +1245,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "201de327520df007757c1f0adce6e827fe8562fbc28bfd9c15571c66ca1f5f79"
 
 [[package]]
-name = "libloading"
-version = "0.7.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b67380fd3b2fbe7527a606e18729d21c6f3951633d0500574c4dc22d2d638b9f"
-dependencies = [
- "cfg-if",
- "winapi",
-]
-
-[[package]]
 name = "line-wrap"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1312,12 +1301,6 @@ checksum = "62bb907fe88d54d8d9ce32a3cceab4218ed2f6b7d35617cafe9adf84e43919cb"
 dependencies = [
  "libc",
 ]
-
-[[package]]
-name = "maplit"
-version = "1.0.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3e2e65a1a2e43cfcb47a895c4c8b10d1f4a61097f9f254f183aee60cad9c651d"
 
 [[package]]
 name = "markup5ever"
@@ -1528,12 +1511,11 @@ checksum = "b7e5500299e16ebb147ae15a00a942af264cf3688f47923b8fc2cd5858f23ad3"
 
 [[package]]
 name = "opencv"
-version = "0.78.2"
+version = "0.82.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c2cf1e1032fc4708610bfe682667b9a29d634d6cc3c092a78aa5b5a09b46bedf"
+checksum = "e53f8da5fbcabdcadc76b476454c574ea348cbc37a7ae5fb96dabebb124cf473"
 dependencies = [
  "cc",
- "clang",
  "dunce",
  "jobserver",
  "libc",
@@ -1548,14 +1530,13 @@ dependencies = [
 
 [[package]]
 name = "opencv-binding-generator"
-version = "0.58.1"
+version = "0.65.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "39f23a179697a7996e95159d7415024fc1314e65f54ed4a1c8b6d318a0fe4a24"
+checksum = "b4a3f509dbff59446a1fa91174352b74bd490bcf47ebe51e5d1456a3c960a9f2"
 dependencies = [
  "clang",
  "clang-sys",
  "dunce",
- "maplit",
  "once_cell",
  "percent-encoding",
  "regex",
