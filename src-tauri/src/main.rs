@@ -4,8 +4,6 @@
 )]
 
 
-mod tests;
-
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn greet(name: &str) -> String {
@@ -15,10 +13,6 @@ fn greet(name: &str) -> String {
 
 fn main() {
     println!("Message from top of Rust main.rs");
-
-    tests::core::make_type();
-    tests::imgproc::min_enclosing();
-    tests::imgcodecs::decode();
 
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![greet])
