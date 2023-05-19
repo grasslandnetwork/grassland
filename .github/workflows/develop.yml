@@ -2,10 +2,10 @@ name: 'develop'
 on:
   push:
     branches:
-      - '*'
+      - feature/*
   pull_request:
     branches:
-      - '*'
+      - feature/*
 jobs:
   src:
     strategy:
