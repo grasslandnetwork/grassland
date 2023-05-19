@@ -44,6 +44,11 @@ jobs:
         run: src-tauri/src/ci/install.sh
         shell: bash
 
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
@@ -84,6 +89,11 @@ jobs:
           OS_FAMILY: ${{ runner.os }}
         run: src-tauri/src/ci/install.sh
         shell: bash
+
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable

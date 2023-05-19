@@ -26,7 +26,7 @@ RUN \
 # RUN ln -fs libclang.so.1 /usr/lib/llvm-10/lib/libclang.so
 # Doesn't work. ERROR: "ln: failed to create symbolic link '/usr/lib/llvm-10/lib/libclang.so': No such file or directory"  
 
-ENV NODE_VERSION 18
+ENV NODE_VERSION 16
 RUN curl -fsSL https://deb.nodesource.com/setup_$NODE_VERSION.x | bash - \
     && apt-get install -y nodejs
 
