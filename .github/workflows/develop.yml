@@ -2,12 +2,10 @@ name: 'develop'
 on:
   push:
     branches:
-      - "*"
-    tags_ignore:
-      - "*"
+      - '*'
   pull_request:
     branches:
-      - "*"
+      - '*'
 jobs:
   src:
     strategy:
