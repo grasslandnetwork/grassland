@@ -51,9 +51,9 @@ jobs:
         with:
           submodules: true
 
-      - name: Disable Signing if not on main
+      - name: Disable Signing if not on master
         # Private key not available otherwise
-        if: github.ref != 'refs/heads/main'
+        if: github.ref != 'refs/heads/master'
         run: jq '.tauri.updater.active = false' src-tauri/tauri.conf.json > src-tauri/tauri.conf.json.tmp && mv src-tauri/tauri.conf.json.tmp src-tauri/tauri.conf.json
 
 
