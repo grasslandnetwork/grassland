@@ -57,6 +57,11 @@ echo "=== Target settings:"
 rustc --version
 rustc --print=cfg
 
+# Since Grassland is a tauri app, we need to go to src-tauri directory before we can run cargo tests
+
+cd src-tauri
+cargo test -vv
+
 # cargo test -vv -p opencv-binding-generator
 
 # FEATURES=rgb
