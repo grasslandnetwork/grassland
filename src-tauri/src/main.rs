@@ -17,6 +17,8 @@ fn main() {
     println!("Message from top of Rust main.rs");
 
     tests::core::make_type();
+    tests::imgproc::min_enclosing();
+    tests::imgcodecs::decode();
 
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![greet])
