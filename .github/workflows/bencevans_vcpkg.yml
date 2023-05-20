@@ -96,13 +96,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{runner.arch}}-cargo-
 
-      - name: Install Npm Packages
-         run: npm install
-      - name: Install Cargo Tauri Cli
-         run: cargo install tauri-cli
       - name: Build Tauri App
         # run: npm install && OPENCV_DISABLE_PROBES=pkg_config,cmake npm run tauri build
         run: |
+          npm install
+          cargo install tauri-cli
           echo "DYLD_FALLBACK_LIBRARY_PATH=$(xcode-select --print-path)/usr/lib/"
           echo "RUST_BACKTRACE=1"
           cargo tauri build
