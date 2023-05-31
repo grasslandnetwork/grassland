@@ -214,3 +214,6 @@ WORKDIR /usr/src/grassland
 # # RUN cargo build --release
 
 RUN cargo tauri build            # Run build
+
+ENTRYPOINT ["cargo" ]
+CMD ["tauri", "dev"]
