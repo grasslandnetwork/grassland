@@ -204,6 +204,12 @@ ENV OPENCV_LINK_LIBS="opencv_highgui,opencv_objdetect,opencv_dnn,opencv_videosta
     OPENCV_INCLUDE_PATHS="/opt/opencv/include/opencv4"
 
 
+# Test the rust backend
+WORKDIR /usr/src/grassland/src-tauri
+RUN cargo test -v
+# Return to Tauri root directory
+WORKDIR /usr/src/grassland
+
 # # Build the Rust project
 # # RUN cargo build --release
 

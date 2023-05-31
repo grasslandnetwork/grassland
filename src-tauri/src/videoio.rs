@@ -3,8 +3,7 @@ use opencv::{core, videoio::VideoWriter, Error, Result};
 #[cfg(test)]
 mod tests {
 
-    use matches::assert_matches; // a 'dev-dependency' in Cargo.toml
-
+    use matches::assert_matches; // a Cargo.toml. 'dev-dependency' that's available during tests 
     use super::*;
 
     #[test]
