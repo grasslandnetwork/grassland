@@ -6,7 +6,10 @@ sudo apt-get update
 
 sudo apt-get install -y clang
 # workaround to make clang_sys crate detect installed libclang
-sudo ln -fs libclang.so.1 /usr/lib/llvm-10/lib/libclang.so
+# sudo ln -fs libclang.so.1 /usr/lib/llvm-10/lib/libclang.so
+# Doesn't work:
+# ln: failed to create symbolic link '/usr/lib/llvm-10/lib/libclang.so': No such file or directory
+# Error: Process completed with exit code 1.
 
 if [[ "$OPENCV_VERSION" == "4.2.0" ]]; then
 	sudo apt-get -y install "libopencv-dev=${OPENCV_VERSION}*"
