@@ -1,5 +1,7 @@
 # Contributing
 
+Make sure this is the ['develop' branch's version of CONTRIBUTING.md](https://github.com/grasslandnetwork/grassland/blob/develop/CONTRIBUTING.md). It's the most up-to-date.
+
 ## Install OpenCV
 
 First you'll need to install OpenCV. Which handles the video processing.
