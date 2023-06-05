@@ -8,99 +8,46 @@ on:
       - feature/*
 jobs:
   src:
-    strategy:
-      fail-fast: false
-      matrix:
-        os-image:
-          - ubuntu-20.04
-          - macos-11
-        version:
-          - opencv: 3.4.19
-          - opencv: 4.7.0
-        exclude:
-          - os-image: macos-11
-            version:
-              opencv: 3.4.19
-        include:
-          - os-image: ubuntu-20.04
-            version:
-              opencv: 4.7.0-static
-    runs-on: ${{ matrix.os-image }}
-    env:
-      Atlas_ROOT_DIR: /usr/include/ # for cmake to find lapacke.h
-      OPENCV_VERSION: ${{ matrix.version.opencv }}
-    steps:
-      - uses: actions/checkout@v3
+      strategy:
+        fail-fast: false
+        matrix:
+          os-image:
+            - ubuntu-22.04
+            - macos-12
+          version:
+            - opencv: 3.4.19
+            - opencv: 4.7.0
+          exclude:
+            - os-image: macos-12
+              version:
+                opencv: 3.4.19
+          include:
+            - os-image: ubuntu-22.04
+              version:
+                opencv: 4.7.0-static
+      runs-on: ${{ matrix.os-image }}
+      env:
+        Atlas_ROOT_DIR: /usr/include/ # for cmake to find lapacke.h
+        OPENCV_VERSION: ${{ matrix.version.opencv }}
+      steps:
+        - uses: actions/checkout@v3
 
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/build
-          key: src-${{ matrix.version.opencv }}-${{ matrix.os-image }}
+        - name: Cache dependencies
+          uses: actions/cache@v3
+          with:
+            path: ~/build
+            key: src-${{ matrix.version.opencv }}-${{ matrix.os-image }}
 
-      - name: Install dependencies
-        env:
-          OS_FAMILY: ${{ runner.os }}
-        run: src-tauri/src/ci/install.sh
-        shell: bash
+        - name: Install dependencies
+          env:
+            OS_FAMILY: ${{ runner.os }}
+          run: ci/install.sh
+          shell: bash
 
-      - name: setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
+        - uses: dtolnay/rust-toolchain@stable
 
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Test project
-        env:
-          OS_FAMILY: ${{ runner.os }}
-        run: src-tauri/src/ci/script.sh
-        shell: bash
-        
-  bin:
-    strategy:
-      fail-fast: false
-      matrix:
-        os-image:
-          - macos-11
-          - windows-2022
-        version:
-          - branch: 3.4
-            opencv: 3.4.16
-            brew: "@3"
-          - branch: 4
-            opencv: 4.6.0
-            brew: "@4"
-        include:
-          - os-image: ubuntu-20.04
-            version:
-              opencv: 4.2.0
-              brew: excluded
-    runs-on: ${{ matrix.os-image }}
-    env:
-      OPENCV_VERSION: ${{ matrix.version.opencv }}
-      BREW_OPENCV_VERSION: ${{ matrix.version.brew }}
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Install dependencies
-        env:
-          OS_FAMILY: ${{ runner.os }}
-        run: src-tauri/src/ci/install.sh
-        shell: bash
-
-      - name: setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Test project
-        env:
-          OS_FAMILY: ${{ runner.os }}
-        run: src-tauri/src/ci/script.sh
-        shell: bash
-
+        - name: Test project
+          env:
+            OS_FAMILY: ${{ runner.os }}
+          run: ci/script.sh
+          shell: bash
