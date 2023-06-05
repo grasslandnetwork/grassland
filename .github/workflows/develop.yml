@@ -144,7 +144,7 @@ jobs:
             ${{ runner.os }}-${{runner.arch}}-cargo-
 
       - name: Build App
-        run: npm install && OPENCV_DISABLE_PROBES=pkg_config,cmake npm run tauri build
+        run: npm install && OPENCV_DISABLE_PROBES=pkg_config,cargo tauri build
         # env:
         #  TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
         #  TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
